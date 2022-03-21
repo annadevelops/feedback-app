@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 function Header({text, bgColour, textColour }) {
   const headerStyles = {
     backgroundColor: bgColour,
@@ -6,7 +7,9 @@ function Header({text, bgColour, textColour }) {
   return (
     <header style = {headerStyles}>
       <div className="container" >
+        <Link to="/" className="header-text">
         <h2>{text}</h2>
+        </Link>
       </div>
     </header>
   )
