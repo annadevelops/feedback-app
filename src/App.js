@@ -18,17 +18,12 @@ function App() {
         }))
     }
 
-    let average = feedback.reduce((acc, cur) => {
-        return acc + cur.rating
-      }, 0) / feedback.length
 
     const addFeedback = (newFeedback) => {
         newFeedback.id = uuidv4()
        setFeedback([newFeedback, ...feedback])
        
     }
-
-    console.log(average)
 
 
     return (
