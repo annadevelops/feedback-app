@@ -28,22 +28,29 @@ export const FeedbackProvider = ({children}) => {
     //Function to fetch feedback from FeedbackData.js which is served on port 8000 via json-server
     const fetchFeedback = async () => { 
         const response = await fetch('/feedback')
-
-    const data = await response.json()
-    setFeedback(data)
-}
+        const data = await response.json()
+        setFeedback(data)
+    }
 
     //Bringing deleteFeedback function from App.js to here so no need to use function passed through props for each component
     const deleteFeedback = (id) => {
-        
         setFeedback(feedback.filter((item) => {
             return item.id !== id
         }))
     }
 
-    const addFeedback = (newFeedback) => {
-        newFeedback.id = uuidv4()
-       setFeedback([newFeedback, ...feedback])
+    const addFeedback = async (newFeedback) => {
+        const response = await fetch('/feedback', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newFeedback)
+        })
+
+        const data = await response.json()
+        
+       setFeedback([data, ...feedback])
        
     }
 
