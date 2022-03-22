@@ -39,12 +39,19 @@ export const FeedbackProvider = ({children}) => {
         })
     }
 
+    const updateFeedback = (id, updItem) => {
+        setFeedback(feedback.map((item) => (item.id === id ? updItem : item))
+        )
+    }
+
     // The context provider for the feedback component. Value is what we want to pass to our children so the state functions etc
     return <FeedbackContext.Provider value={{ 
         feedback,
         deleteFeedback,
         addFeedback,
-        editFeedback
+        editFeedback,
+        feedbackEdit,
+        updateFeedback
     }}>
         {children}
     </FeedbackContext.Provider>
