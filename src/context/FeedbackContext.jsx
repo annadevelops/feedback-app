@@ -1,13 +1,11 @@
 import {createContext, useState} from 'react'
 
-/**
- * The context for the feedback component.  This context is used to provide the feedback component with the necessary data.
- * @returns The context for the feedback component.
- */
+
+
 const FeedbackContext = createContext()
 
 /**
- * A React component that acts as a provider to return the feedback component to its children
+ * A React component that acts as a provider to return the FeedbackContext
  * @param children - The children of the component. 
  * @returns FeedbackContext.Provider
  */
