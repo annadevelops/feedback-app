@@ -7,6 +7,7 @@ function FeedbackList() {
     const {feedback} = useContext(FeedbackContext)
     return (
           <div className='feedback-list'>
+            {feedback.length > 0 ? (
               <AnimatePresence>
               {feedback.map((item) => (
                   <motion.div
@@ -20,6 +21,8 @@ function FeedbackList() {
                 
               ))}
               </AnimatePresence>
+            ) : <p>No Feedback Yet</p> }
+              
           </div>
       
   )

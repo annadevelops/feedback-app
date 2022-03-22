@@ -1,4 +1,4 @@
-import {createContext, useState} from 'react'
+import {createContext, useState, useEffect} from 'react'
 import { v4 as uuidv4} from 'uuid'; // Import the components and data files for UUID which generates unique ID for objects
 import FeedbackData from '../data/FeedbackData'
 
@@ -11,6 +11,7 @@ const FeedbackContext = createContext()
  * @returns FeedbackContext.Provider
  */
 export const FeedbackProvider = ({children}) => {
+
     const [feedback, setFeedback] = useState(FeedbackData)
 
     //set state to edit the feedback
@@ -19,8 +20,22 @@ export const FeedbackProvider = ({children}) => {
         edit: false
     })
 
+    //to call FetchFeedback when the loads
+    useEffect(() => {
+        fetchFeedback()
+    },[])
+
+    //Function to fetch feedback from FeedbackData.js which is served on port 8000 via json-server
+    const fetchFeedback = async () => { 
+        const response = await fetch('/feedback')
+
+    const data = await response.json()
+    setFeedback(data)
+}
+
     //Bringing deleteFeedback function from App.js to here so no need to use function passed through props for each component
     const deleteFeedback = (id) => {
+        
         setFeedback(feedback.filter((item) => {
             return item.id !== id
         }))
