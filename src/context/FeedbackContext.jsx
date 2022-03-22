@@ -13,6 +13,12 @@ const FeedbackContext = createContext()
 export const FeedbackProvider = ({children}) => {
     const [feedback, setFeedback] = useState(FeedbackData)
 
+    //set state to edit the feedback
+    const [feedbackEdit, setFeedbackEdit] = useState({
+        item: {},
+        edit: false
+    })
+
     //Bringing deleteFeedback function from App.js to here so no need to use function passed through props for each component
     const deleteFeedback = (id) => {
         setFeedback(feedback.filter((item) => {
@@ -26,11 +32,19 @@ export const FeedbackProvider = ({children}) => {
        
     }
 
+    const editFeedback = (item) => {
+        setFeedbackEdit({
+            item,
+            edit: true
+        })
+    }
+
     // The context provider for the feedback component. Value is what we want to pass to our children so the state functions etc
     return <FeedbackContext.Provider value={{ 
         feedback,
         deleteFeedback,
-        addFeedback
+        addFeedback,
+        editFeedback
     }}>
         {children}
     </FeedbackContext.Provider>
