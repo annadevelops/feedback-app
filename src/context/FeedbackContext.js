@@ -33,10 +33,12 @@ export const FeedbackProvider = ({children}) => {
     }
 
     //Bringing deleteFeedback function from App.js to here so no need to use function passed through props for each component
-    const deleteFeedback = (id) => {
-        setFeedback(feedback.filter((item) => {
-            return item.id !== id
-        }))
+    const deleteFeedback = async (id) => {
+        await fetch(`/feedback/${id}`, {
+            method: "DELETE"
+        })
+
+        setFeedback(feedback.filter((item) => item.id !== id))
     }
 
     const addFeedback = async (newFeedback) => {
@@ -47,7 +49,6 @@ export const FeedbackProvider = ({children}) => {
             },
             body: JSON.stringify(newFeedback)
         })
-
         const data = await response.json()
         
        setFeedback([data, ...feedback])
