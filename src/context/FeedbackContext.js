@@ -62,9 +62,20 @@ export const FeedbackProvider = ({children}) => {
         })
     }
 
-    const updateFeedback = (id, updItem) => {
-        setFeedback(feedback.map((item) => (item.id === id ? updItem : item))
+    const updateFeedback = async (id, updItem) => {
+        const response = await fetch(`/feedback/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updItem)
+        })
+
+        const data = await response.json()
+
+        setFeedback(feedback.map((item) => (item.id === id ? data : item))
         )
+        
     }
 
     // The context provider for the feedback component. Value is what we want to pass to our children so the state functions etc

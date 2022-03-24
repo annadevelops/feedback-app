@@ -35,6 +35,8 @@ function FeedbackForm() {
         } else {
             addFeedback(newFeedback)
         }
+        setText('')
+        setRating(10)
     }
 
   return (
